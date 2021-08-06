@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.2) (preloaded format=pdflatex 2021.3.12)  5 AUG 2021 17:24
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.2) (preloaded format=pdflatex 2021.3.12)  6 AUG 2021 18:59
 entering extended mode
 **./paper.tex
 (paper.tex
@@ -412,18 +412,13 @@ LaTeX Info: Redefining \nameref on input line 58.
 
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
- [1
-
-{C:/Users/Max/AppData/Local/MiKTeX/pdftex/config/pdftex.map}] [2
-
-]
-LaTeX Font Info:    Trying to load font information for U+msa on input line 134
+LaTeX Font Info:    Trying to load font information for U+msa on input line 108
 .
 
 (C:\Users\Max\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 134
+LaTeX Font Info:    Trying to load font information for U+msb on input line 108
 .
 
 (C:\Users\Max\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
@@ -433,83 +428,72 @@ Overfull \hbox (2.61108pt too wide) has occurred while \output is active
 [] 
  []
 
-pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
-been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.145 
-       [1
+[1
 
 
-]pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has
- been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.158 \begin{equation}
-                      \label{nmnlchoiceprobability} [2] [3] [4] [5] [6]
-<../plots/param-est-dynamic-nonnested.pdf, id=124, 1003.75pt x 501.875pt>
+{C:/Users/Max/AppData/Local/MiKTeX/pdftex/config/pdftex.map}] [2] [3]
+[4] [5] [6]
+<../plots/param-est-dynamic-nonnested.pdf, id=126, 1003.75pt x 501.875pt>
 File: ../plots/param-est-dynamic-nonnested.pdf Graphic file (type pdf)
 <use ../plots/param-est-dynamic-nonnested.pdf>
 Package pdftex.def Info: ../plots/param-est-dynamic-nonnested.pdf  used on inpu
-t line 260.
+t line 241.
 (pdftex.def)             Requested size: 390.0pt x 195.00294pt.
-<../plots/param-est-dynamic-nested.pdf, id=126, 1003.75pt x 702.625pt>
+<../plots/param-est-dynamic-nested.pdf, id=128, 1003.75pt x 702.625pt>
 File: ../plots/param-est-dynamic-nested.pdf Graphic file (type pdf)
 <use ../plots/param-est-dynamic-nested.pdf>
 Package pdftex.def Info: ../plots/param-est-dynamic-nested.pdf  used on input l
-ine 268.
+ine 249.
 (pdftex.def)             Requested size: 390.0pt x 273.00414pt.
-<../plots/param-est-dynamic-nested-as-static.pdf, id=128, 903.375pt x 903.375pt
+<../plots/param-est-dynamic-nested-as-static.pdf, id=130, 903.375pt x 903.375pt
 >
 File: ../plots/param-est-dynamic-nested-as-static.pdf Graphic file (type pdf)
 <use ../plots/param-est-dynamic-nested-as-static.pdf>
 Package pdftex.def Info: ../plots/param-est-dynamic-nested-as-static.pdf  used 
-on input line 277.
+on input line 258.
 (pdftex.def)             Requested size: 390.0pt x 390.00131pt.
-
-[7] [8 <../plots/param-est-dynamic-nonnested.pdf>] [9 <../plots/param-est-dynam
-ic-nested.pdf>] [10 <../plots/param-est-dynamic-nested-as-static.pdf>] [11]
-(paper.aux)
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
+ [7 <../plots/param-est-dynamic-nonnested.pdf>] [8 <../plots/param-est-dynamic-
+nested.pdf>] [9 <../plots/param-est-dynamic-nested-as-static.pdf>]
+[10] (paper.aux)
 Package rerunfilecheck Info: File `paper.out' has not changed.
-(rerunfilecheck)             Checksum: 30B577A614BA0239085783518E5C52D8;2268.
+(rerunfilecheck)             Checksum: 43E4A764B2CA292A99C7D95500489DF2;2224.
  ) 
 Here is how much of TeX's memory you used:
- 11283 strings out of 479334
- 169475 string characters out of 2858034
- 474999 words of memory out of 3000000
- 28538 multiletter control sequences out of 15000+200000
+ 11290 strings out of 479334
+ 169614 string characters out of 2858034
+ 476129 words of memory out of 3000000
+ 28546 multiletter control sequences out of 15000+200000
  412096 words of font info for 61 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 83i,15n,88p,1017b,433s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 83i,20n,88p,1110b,347s stack positions out of 5000i,500n,10000p,200000b,50000s
  <C:\Users\Max\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm12
 00.pk><C:/Users/Max/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/c
 m/cmbx12.pfb><C:/Users/Max/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
 fonts/cm/cmex10.pfb><C:/Users/Max/AppData/Local/Programs/MiKTeX/fonts/type1/pub
-lic/amsfonts/cm/cmmi10.pfb><C:/Users/Max/AppData/Local/Programs/MiKTeX/fonts/ty
-pe1/public/amsfonts/cm/cmmi12.pfb><C:/Users/Max/AppData/Local/Programs/MiKTeX/f
-onts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/Max/AppData/Local/Programs/Mi
-KTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/Max/AppData/Local/Progr
-ams/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Max/AppData/Local
-/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/Max/AppData
-/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/Max/A
-ppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/
-Max/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/U
-sers/Max/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb>
-<C:/Users/Max/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy
-10.pfb><C:/Users/Max/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/
-cm/cmsy8.pfb><C:/Users/Max/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
-fonts/cm/cmti10.pfb><C:/Users/Max/AppData/Local/Programs/MiKTeX/fonts/type1/pub
-lic/amsfonts/cm/cmti12.pfb><C:/Users/Max/AppData/Local/Programs/MiKTeX/fonts/ty
-pe1/public/amsfonts/cm/cmti7.pfb><C:/Users/Max/AppData/Local/Programs/MiKTeX/fo
-nts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/Max/AppData/Local/Programs/Mi
-KTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb><C:/Users/Max/AppData/Local/Prog
-rams/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on paper.pdf (13 pages, 6785242 bytes).
+lic/amsfonts/cmextra/cmex8.pfb><C:/Users/Max/AppData/Local/Programs/MiKTeX/font
+s/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Max/AppData/Local/Programs/MiKT
+eX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/Max/AppData/Local/Progra
+ms/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/Max/AppData/Local/
+Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/Max/AppData/
+Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Max/Ap
+pData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/
+Max/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/
+Users/Max/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb
+><C:/Users/Max/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr
+7.pfb><C:/Users/Max/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/c
+m/cmr8.pfb><C:/Users/Max/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfo
+nts/cm/cmsy10.pfb><C:/Users/Max/AppData/Local/Programs/MiKTeX/fonts/type1/publi
+c/amsfonts/cm/cmsy6.pfb><C:/Users/Max/AppData/Local/Programs/MiKTeX/fonts/type1
+/public/amsfonts/cm/cmsy8.pfb><C:/Users/Max/AppData/Local/Programs/MiKTeX/fonts
+/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/Max/AppData/Local/Programs/MiKTe
+X/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/Max/AppData/Local/Program
+s/MiKTeX/fonts/type1/public/amsfonts/cm/cmti7.pfb><C:/Users/Max/AppData/Local/P
+rograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/Max/AppData/
+Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb><C:/Users/Max/A
+ppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on paper.pdf (10 pages, 6802279 bytes).
 PDF statistics:
- 251 PDF objects out of 1000 (max. 8388607)
- 49 named destinations out of 1000 (max. 500000)
- 104 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 256 PDF objects out of 1000 (max. 8388607)
+ 48 named destinations out of 1000 (max. 500000)
+ 96 words of extra memory for PDF output out of 10000 (max. 10000000)
 
