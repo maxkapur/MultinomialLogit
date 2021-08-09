@@ -1,1 +1,6 @@
-.ipynb_checkpoints
+*.ipynb_checkpoints
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.spl
+paper/*.synctex.gz
