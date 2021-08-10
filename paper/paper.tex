@@ -201,7 +201,7 @@ Notice that $\sum_{i=1}^n \delta_i$ remains constant under the parameter update,
 \subsection{Why the parameter update converges}
 Consider the multivariate root-finding problem \[\text{find } \theta^*: F(\theta^*) = 0\]
 and the iterative scheme \[\theta^{(t+1)} = \theta^{(t)} + \frac{\alpha}{t^r} F\left(\theta^{(t)} \right)\]
-where $\alpha >0$ and $r \in (0, 1]$ are step parameters. When $F: \mathbb{R}^n \mapsto \mathbb{R}^n$ is Lipschitz continuous and its Jacobian is negative definite, such an iterative scheme is known to converge to the root, if it exists (\citealp[][thm. 11.6]{nocedal2006}; \citealp[][prop. 1.2.4]{bertsekas1999}). A typical example occurs when using gradient ascent to maximize a strictly concave function whose gradient is $F$.
+where $\alpha >0$ and $r \in (0, 1]$ are step parameters. When $F: \mathbb{R}^n \mapsto \mathbb{R}^n$ is Lipschitz continuous and its Jacobian is negative definite, such an iterative scheme is known to converge to the root, if it exists (\citealp[][prop. 1.2.4]{bertsekas1999}; \citealp[][thm. 11.6]{nocedal2006}). A typical example occurs when using gradient ascent to maximize a strictly concave function whose gradient is $F$.
 
 Moreover, if we replace $F(\theta)$ with an \emph{experiment} $\hat F(\theta)$ satisfying $\mathbb{E}\left[\hat F(\theta)\right] = F(\theta)$, then the same iterative scheme exhibits \emph{stochastic convergence} \cite[][]{robbinsmonro1951, tsitsiklis1994}. That is, with probability one,
 \[\lim_{t\to \infty} \mathbb{E}\left[F\bigl(\theta^{(t)}\bigr)\right] = \theta^*\]
@@ -338,7 +338,7 @@ Farias, Vivek F., Srikanth Jagabathula, and Devavrat Shah. 2013. “A Nonparamet
 Ho-Nguyen, Nam and Fatma Kılınç-Karzan. 2021. ``Dynamic Data-Driven Estimation of Nonparametric Choice Models.'' \emph{Operations Research: Articles in Advance.} {\url{https://doi.org/10.1287/opre.2020.2077}}.
 
 \bibitem[Keane(1997)]{keane1997}
-Keane, Michael P. 1997. ``Current Issues in Discrete Choice Modeling." \emph{Marketing Letters} 8(3): 307--22. {\url{http://www.jstor.org/stable/40216456}}.
+Keane, Michael P. 1997. ``Current Issues in Discrete Choice Modeling." \emph{Marketing Letters} 8(3): 307--22. {\url{https://www.jstor.org/stable/40216456}}.
 
 \bibitem[Kushner and Yin(1997)]{kushner1997}
 Kushner, Harold J. and G. George Yin. 1997. \emph{Stochastic Approximation Algorithms and Applications.} New York: Springer. {\url{https://doi.org/10.1007/978-1-4899-2696-8}}.
