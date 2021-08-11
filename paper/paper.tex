@@ -74,13 +74,13 @@
  \author{Max Kapur\corref{cor1}}
  \ead{maxkapur@snu.ac.kr}
 %% \ead[url]{home page}
-\cortext[cor1]{Declarations of interest: none}
+\cortext[cor1]{This research is supported by a grant from Seoul Metro, which manages the public transportation network in Seoul.}
 % \affiliation{organization={Seoul National University}, city={Seoul}, country={South Korea}}
  \address{Seoul National University, Department of Industrial Engineering, 1 Gwanak-ro, Gwanak-gu, Seoul 08826, Republic of Korea}
 %% \fntext[label3]{}
 
 \begin{abstract}
-This paper considers the dynamic parameter estimation of the nested multinomial logit choice model under a tight computational constraint. I provide an approximation scheme for the model parameters that updates the current estimate according to an intuitive step rule. Stochastic convergence is guaranteed under the Robbins--Monro condition. Numerical simulations demonstrate the technique's feasibility.
+This paper considers the dynamic parameter estimation of the nested multinomial logit choice model under a tight computational constraint. We provide an approximation scheme for the model parameters that updates the current estimate according to an intuitive step rule. Stochastic convergence is guaranteed under the Robbins--Monro condition. Numerical simulations demonstrate the technique's feasibility.
 \end{abstract}
 
 %%Graphical abstract
@@ -115,7 +115,7 @@ choice models \sep multinomial logit \sep dynamic parameter estimation
 \section{Introduction}
 In a recent paper, \cite{honguyen2021} articulate the need for \emph{dynamic} choice modeling that can incorporate new observations of consumer behavior without solving a full optimization problem over the perturbed dataset. That paper concerned nonparametric choice models, which are hard to estimate even in a static setting \cite[][]{rusmevichientong2006, farias2013}. On the other hand, while \emph{parametric} choice models cannot accommodate every distribution of consumer preference orders \cite[][]{keane1997}, they offer a substantial advantage in the computational tractability of both model fitting and assortment optimization tasks \cite[][]{bunch1987, davis2014}. To establish parity in the  debate over the relative merits of parametric and nonparametric choice models, it is worth examining whether this tractability advantage is equally pronounced in the dynamic setting. 
 
-The present paper answers in the affirmative by providing a dynamic approximation scheme for the multinomial logit choice model and its nested variant in a tightly constrained computational environment called the data stream. When a new observation of a consumer choice arrives, the technique proposed here updates the current parameter estimate according to an intuitive rule with a sequence of decreasing step sizes. I show that stochastic convergence is guaranteed under the Robbins--Monro condition, and the convergence rate can be honed by tuning step parameters and utilizing a rolling average. I conclude by demonstrating the feasibility of the technique through numerical simulations. 
+The present paper answers in the affirmative by providing a dynamic approximation scheme for the multinomial logit choice model and its nested variant in a tightly constrained computational environment called the data stream. When a new observation of a consumer choice arrives, the technique proposed here updates the current parameter estimate according to an intuitive rule with a sequence of decreasing step sizes. We show that stochastic convergence is guaranteed under the Robbins--Monro condition. The convergence rate can be further improved by tuning step parameters and utilizing a rolling average. We conclude by demonstrating the feasibility of the technique through numerical simulations. 
 
 \section{The multinomial logit choice model and its nested variant}
 Consider a portfolio of \emph{products} $\mathcal{N} = \{1 \dots n\}$. A consumer is offered an \emph{assortment} $\mathcal{A} \subseteq \mathcal{N}$ of products to choose from. A \emph{choice model} defines the probability that the consumer will choose product $i$.
@@ -169,19 +169,19 @@ First, consider the estimation of MNL choice parameters. At time $t$, the parame
 \end{cases}
 \end{equation}
 
-I propose the following \emph{MNL parameter update:}
+We propose the following \emph{MNL parameter update:}
 \begin{align} \label{mnlparameterupdate}
 \delta^{(t+1)} = \delta^{(t)} + \frac{\alpha}{t^r} Z^{(t)}
 \end{align}
 $\alpha >0$ and $r \in (0, 1]$ are step parameters. The intuition behind this parameter update is as follows. Seeing that $y_t$ was chosen from $\mathcal{A}_t$, we 
 \begin{itemize}
 \item Increase the estimated preferability of the item that was picked,
-\item Decrease the estimated preferability of the items that were rejected, and
+\item Decrease the estimated preferability of items that were rejected, and
 \item Leave unchanged the preferability of items not in the presented assortment.
 \end{itemize}
-Notice that $\sum_{i=1}^n \delta_i$ remains constant under the parameter update, because $\sum_i Z_i = 0$. 
+Notice that $\sum_{i=1}^n \delta_i$ remains constant under the parameter update, because $\sum_i Z_i = 0$. The starting point $\delta^{(1)}$ may be chosen arbitrarily.
 
-\begin{proposition}If the observations are drawn from an MNL choice model and each consideration set appears with nonzero probability, then the MNL parameter update converges in expectation to the true parameters $\delta$.
+\begin{proposition}\label{mnlupdateconverges}If the observations are drawn from an MNL choice model and each consideration set appears with nonzero probability, then the MNL parameter update \eqref{mnlparameterupdate} converges in expectation to the true parameters $\delta$. 
 \end{proposition}
 
 %\subsection{A brief example}
@@ -198,31 +198,36 @@ Notice that $\sum_{i=1}^n \delta_i$ remains constant under the parameter update,
 %\end{align}
 %is the updated parameter estimate.
 
-\subsection{Why the parameter update converges}
-Consider the multivariate root-finding problem \[\text{find } \theta^*: F(\theta^*) = 0\]
-and the iterative scheme \[\theta^{(t+1)} = \theta^{(t)} + \frac{\alpha}{t^r} F\left(\theta^{(t)} \right)\]
-where $\alpha >0$ and $r \in (0, 1]$ are step parameters. When $F: \mathbb{R}^n \mapsto \mathbb{R}^n$ is Lipschitz continuous and its Jacobian is negative definite, such an iterative scheme is known to converge to the root, if it exists (\citealp[][prop. 1.2.4]{bertsekas1999}; \citealp[][thm. 11.6]{nocedal2006}). A typical example occurs when using gradient ascent to maximize a strictly concave function whose gradient is $F$.
+Before proving Proposition \ref{mnlupdateconverges}, we need to invoke a few canonical results.
 
-Moreover, if we replace $F(\theta)$ with an \emph{experiment} $\hat F(\theta)$ satisfying $\mathbb{E}\left[\hat F(\theta)\right] = F(\theta)$, then the same iterative scheme exhibits \emph{stochastic convergence} \cite[][]{robbinsmonro1951, tsitsiklis1994}. That is, with probability one,
-\[\lim_{t\to \infty} \mathbb{E}\left[F\bigl(\theta^{(t)}\bigr)\right] = \theta^*\]
-Many convergence rate results also generalize to stochastic interpretations \cite[][\S10.4]{kushner1997}.
+\subsection{Convergence of gradient processes using decreasing step sizes}
+Consider the multivariate root-finding problem \[\text{find } \theta^*: F(\theta^*) = 0\]
+and the iterative scheme 
+\begin{equation} \label{decreasingsteps}
+\theta^{(t+1)} = \theta^{(t)} + \frac{\alpha}{t^r} F\left(\theta^{(t)} \right)
+\end{equation}
+where $\alpha >0$ and $r \in (0, 1]$ are step parameters. When $F: \mathbb{R}^n \mapsto \mathbb{R}^n$ is Lipschitz continuous and its Jacobian is negative definite, such an iterative scheme converges to the root, if it exists. A familiar example occurs when using gradient ascent to maximize a strictly concave function whose gradient is $F$ \cite[e.g.][prop. 1.2.4]{bertsekas1999}. The extension to root finding is addressed in theorem 11.6 of \cite{nocedal2006}, which shows that $F$ is a descent direction for the sum of squares $f(\theta) = \sum_{i=1}^n F_i(\theta)^2$, whose minimum occurs at the root.
+
+\subsection{Stochastic convergence and Robbins--Monro algorithms}
+Suppose that in the update step \eqref{decreasingsteps},  $F(\theta)$ is replaced by an \emph{experiment} $\hat F(\theta)$ satisfying $\mathbb{E}\left[\hat F(\theta)\right] = F(\theta)$. Then the same iterative scheme is called a \emph{Robbins--Monro algorithm}, and exhibits \emph{stochastic convergence}; that is, with probability one,\[\lim_{t\to \infty} \mathbb{E}\left[F\bigl(\theta^{(t)}\bigr)\right] = \theta^*\]
+\cite{robbinsmonro1951} presented this result for univariate $F$; a more general result appears in \cite{tsitsiklis1994}. Many convergence rate results from the deterministic case also generalize to stochastic interpretations \cite[][\S10.4]{kushner1997}.
 
 %A classic example of a Robbins--Monro algorithm is stochastic gradient descent, which replaces the sum of error terms in a loss function with the errors of a randomly chosen subset of samples. In fact, the MNL parameter update can be regarded as a form of stochastic gradient descent for the log likelihood function, because when the single observation $(\mathcal{A}_t, y_t)$ constitutes the full dataset, a maximum likelihood estimator for the preferability of the products in $\mathcal{A}_t$ is the vector $e_{y_t}$ with a one at $y_t$ and zeros elsewhere. I offer a somewhat more targeted argument, however, in the following subsection.
 
-\subsection{The MNL parameter update is a Robbins--Monro algorithm}
-To express the parameter update as a Robbins--Monro algorithm, it suffices to show that the optimal parameters are the zero of some function $F$, and that the parameter update accords with an experiment $\hat F$ which is alike in expectation.  
+\subsection{Proof of Proposition \ref{mnlupdateconverges}}
+To prove that the MNL parameter update is a Robbins--Monro algorithm, it suffices to show that the optimal parameters are the zero of some function $F$ whose Jacobian is negative definite, and that the parameter update accords with an experiment $\hat F$ which is alike in expectation.  
 
-Let $\delta$ denote the current parameter estimate and let $\delta^*$ denote the true, unknown parameters of the underlying MNL choice model. When the probability of offering each consideration set $\mathcal{A}$ is $\operatorname{Pr[\mathcal{A}]} > 0$, then the expected value of $Z$ has
+Let $\delta$ denote the current parameter estimate and let $\delta^*$ denote the true, unknown parameters of the underlying MNL choice model. When the probability of offering each consideration set $\mathcal{A}$ is $\operatorname{Pr[\mathcal{A}]} > 0$, then the expected value of $Z$ has, at each index,
 \begin{align}
 \mathbb{E}\left[Z(\delta)_i \right] &= \sum_{\substack{\mathcal{A} \in 2^{\mathcal{N}}: \\ i \in \mathcal{A}}}\operatorname{Pr}\left[\mathcal{A}\right] \cdot \mathbb{E}\left[Z(\delta)_i~|~\mathcal{A}\right] \\
 &=   \sum_{\substack{\mathcal{A} \in 2^{\mathcal{N}}: \\ i \in \mathcal{A}}}\operatorname{Pr}\left[\mathcal{A}\right] \cdot \left(\operatorname{Pr}\left[\,\text{choose } i\;|\;\mathcal{A}\,\right] - \frac{\exp \delta_i}{\sum_{j\in \mathcal{A}} \exp \delta_j} \right) \\
-&= \sum_{\substack{\mathcal{A} \in 2^{\mathcal{N}}: \\ i \in \mathcal{A}}}\left(\frac{\exp  \delta_i^*}{\sum_{j\in \mathcal{A}} \exp \delta_j^*} - \frac{\exp \delta_i}{\sum_{j\in \mathcal{A}} \exp \delta_j} \right) \\
+&= \sum_{\substack{\mathcal{A} \in 2^{\mathcal{N}}: \\ i \in \mathcal{A}}}\operatorname{Pr}\left[\mathcal{A}\right] \cdot \left(\frac{\exp  \delta_i^*}{\sum_{j\in \mathcal{A}} \exp \delta_j^*} - \frac{\exp \delta_i}{\sum_{j\in \mathcal{A}} \exp \delta_j} \right) \\
 &= 0
 \end{align}
 if and only if $\delta^* = \delta$. Hence, the counterpart to $F(\theta)$ is the expected value of the random function $Z(\delta)$, while the counterpart to the experiment $\hat F(\theta)$ is the realization $Z^{(t)}(\delta)$. Next, observe that the Jacobian of $\mathbb{E}\left[Z(\delta) \right]$ is negative definite: The first term of the summand is constant, and the second is identical in form to the gradient of the logarithm of the likelihood function given in Equation \eqref{mnllikelihood}, which is concave. Thus, we conclude that the iterative procedure is a Robbins--Monro algorithm and converges in expectation to $\delta^*$. 
 
 \subsection{The NMNL parameter update}
-The NMNL parameter update is analogous to the MNL parameter update. Each new observation consists of a consideration set $\mathcal{A}_t$, a choice of nest $x_t$, and a choice of product $y_t$. Define $\mathcal{A}_t^{\text{nests}}$ and $\mathcal{A}_{t}^{\text{products}}$ as above, and let
+The NMNL parameter update is analogous to the MNL parameter update. Each new observation consists of a consideration set $\mathcal{A}_t$, a nest choice $x_t$, and a product choice $y_t$. Define $\mathcal{A}_t^{\text{nests}}$ and $\mathcal{A}_{t}^{\text{products}}$ as above, and let
 \begin{align}
 W^{(t)}_k &= \begin{cases}
  -  \frac{\exp \sigma^{(t)}_k}{\sum_{l\in \mathcal{A}_{t}^{\text{nests}}} \exp \sigma_l}, \quad & k \in \mathcal{A}_{t}^{\text{nests}}, k \neq x_t\\
