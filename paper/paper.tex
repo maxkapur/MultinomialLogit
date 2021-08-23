@@ -81,7 +81,7 @@
 %% \fntext[label3]{}
 
 \begin{abstract}
-This paper considers the dynamic parameter estimation of the nested multinomial logit choice model under a tight computational constraint. We provide an an estimation scheme that updates the current estimate according to an intuitive step rule. Stochastic convergence is guaranteed under the Robbins--Monro condition. Numerical simulations demonstrate the technique's feasibility.
+This paper considers dynamic parameter estimation in the nested multinomial logit choice model under a tight computational constraint. We propose a scheme that updates the current estimate according to an intuitive step rule. Stochastic convergence is guaranteed under the Robbins--Monro condition. Numerical simulations demonstrate the technique's feasibility.
 \end{abstract}
 
 %%Graphical abstract
@@ -114,16 +114,16 @@ choice models \sep multinomial logit \sep dynamic parameter estimation
 
 
 \section{Introduction}
-In a recent paper, \cite{honguyen2021} articulate the need for \emph{dynamic} choice modeling that can incorporate new observations of consumer behavior without solving a full optimization problem over the perturbed dataset. That paper concerned nonparametric choice models, which are hard to estimate even in a static setting \cite[][]{rusmevichientong2006, farias2013}. On the other hand, while \emph{parametric} choice models cannot accommodate every distribution of consumer preference orders \cite[][]{keane1997}, they offer a substantial advantage in the computational tractability of both model fitting and assortment optimization tasks \cite[][]{bunch1987, davis2014}. To establish parity in the  debate over the relative merits of parametric and nonparametric choice models, it is worth examining whether this tractability advantage is equally pronounced in the dynamic setting. 
+In a recent paper, \cite{honguyen2021} articulate the need for \emph{dynamic} choice modeling that can incorporate new observations of consumer behavior without solving a full optimization problem over the perturbed dataset. That paper concerned nonparametric choice models, which are hard to estimate even in a static setting \cite[][]{rusmevichientong2006, farias2013}. On the other hand, while \emph{parametric} choice models cannot accommodate every distribution of consumer preference orders \cite[][]{keane1997}, they offer a substantial advantage in the computational tractability of both model fitting and assortment optimization tasks \cite[][]{bunch1987, davis2014}. To establish parity in the debate over the relative merits of parametric and nonparametric choice models, it is worth examining whether this tractability advantage is equally pronounced in the dynamic setting. 
 
-The present paper answers in the affirmative by providing a dynamic estimation scheme for the multinomial logit choice model and its nested variant in a tightly constrained computational environment called the data stream. When a new observation of a consumer choice arrives, the technique proposed here updates the current parameter estimate according to an intuitive rule with a sequence of decreasing step sizes. We show that stochastic convergence is guaranteed under the Robbins--Monro condition. The convergence rate can be further improved by tuning step parameters and utilizing a rolling average. We conclude by demonstrating the feasibility of the technique through numerical simulations.
+The present paper answers in the affirmative by providing a dynamic estimation scheme for the multinomial logit choice model and its nested variant in a tightly constrained computational environment called the data stream. When a new observation of a consumer choice arrives, the technique proposed here updates the current parameter estimate according to an intuitive rule with a sequence of decreasing step sizes. We show that stochastic convergence is guaranteed under the Robbins--Monro condition. The convergence rate can be further improved by tuning step parameters and utilizing a rolling average. We also demonstrate the feasibility of the technique through numerical simulations.
 
 This paper is structured as follows. Sections \ref{modeldescription} and \ref{staticestimation} establish the notation and preliminary results in choice modeling. Section \ref{dynamicestimation} describes the update step and shows that it is a Robbins--Monro algorithm. Section \ref{computation} provides numerical results.
 
 \section{The multinomial logit choice model and its nested variant} \label{modeldescription}
 Consider a portfolio of \emph{products} $\mathcal{N} = \{1 \dots n\}$. A consumer is offered an \emph{assortment} $\mathcal{A} \subseteq \mathcal{N}$ of products to choose from. A \emph{choice model} defines the probability that the consumer will choose product $i$.
 
-In the multinomial logit (MNL) choice model, each consumer $t$'s preference order over the products in $\mathcal{N}$ is determined by the sum of a systematic product preferability parameter $\delta_i$ and a noise term $\epsilon_{it}$. The noise terms have an iid extreme value distribution, and the consumer chooses the product in $\mathcal{A}$ for which $\delta_i + \epsilon_{it}$ is greatest. It can be shown that the probability of a given consumer choosing product $i$ from the assortment $\mathcal{A}$ is
+In the multinomial logit (MNL) choice model, each consumer $t$'s preference order over the products in $\mathcal{N}$ is determined by the sum of a systematic product preferability parameter $\delta_i$ and a noise term $\epsilon_{it}$. The noise terms have an iid extreme-value distribution, and the consumer chooses the product in $\mathcal{A}$ for which $\delta_i + \epsilon_{it}$ is greatest. It can be shown that the probability of a given consumer choosing product $i$ from the assortment $\mathcal{A}$ is
 \begin{equation}\label{mnlchoiceprobability}
 \operatorname{Pr}\left[\,\text{choose } i \;|\;\text{assortment }\mathcal{A}\,\right] =\frac{\exp \delta_i}{\sum_{j\in \mathcal{A}} \exp \delta_j}
 \end{equation}
@@ -160,10 +160,10 @@ Computational tools for static estimation of variants of the MNL choice model ar
 
 
 \section{Parameter estimation in the data stream framework} \label{dynamicestimation}
-The dynamic scheme considered in this paper estimates NMNL parameters in online setting called the data stream. In the data stream, we are only allowed to store our \emph{current} parameter estimate and a state variable $t$ representing the number of observations used to construct the current estimate. When a new observation $(\mathcal{A}_t, y_t)$ comes in, we can update the stored variables, but we cannot store the observation itself. %A simple example of a parameter estimation scheme in the data stream framework is the updating sample mean $\bar x^{(t+1)} = \frac{1}{t+1} \left( x_{t+1} + t \bar x^{(t)}\right)$. This calculation eliminates the need to store past observations of the random variable $X$, and each update is $\mathcal{O}(1)$ instead of the $\mathcal{O}(t)$ operations required to recalculate the mean over the full dataset. The MNL parameter update described below offers an analogous computational advantage.
+The dynamic scheme considered in this paper estimates NMNL parameters in online setting called the data stream. In the data stream, we are allowed to store only our \emph{current} parameter estimate and a state variable $t$ representing the number of observations used to construct the current estimate. When a new observation arrives, we can update the stored variables, but we cannot store the observation itself. %A simple example of a parameter estimation scheme in the data stream framework is the updating sample mean $\bar x^{(t+1)} = \frac{1}{t+1} \left( x_{t+1} + t \bar x^{(t)}\right)$. This calculation eliminates the need to store past observations of the random variable $X$, and each update is $\mathcal{O}(1)$ instead of the $\mathcal{O}(t)$ operations required to recalculate the mean over the full dataset. The MNL parameter update described below offers an analogous computational advantage.
 
 \subsection{The MNL parameter update}
-First, consider the estimation of MNL choice parameters. At time $t$, the parameter estimate is $\delta^{(t)}$. A new observation arrives in which a consumer with consideration set $\mathcal{A}_t$ chose product $y_t$. Let $Z^{(t)}$ denote the $n$-vector with
+First, consider MNL without nests. Suppose that customers arrive in the order $\{1 \dots T\}$, and let $\delta^{(t)}$ denote the parameter estimate when customer $t$ arrives. The new observation indicates that customer $t$ chose product $y_t$ from consideration set $\mathcal{A}_t$. Let $Z^{(t)}$ denote the $n$-vector with
 \begin{equation}Z^{(t)}_i =
 \begin{cases}
  - \frac{\exp \delta^{(t)}_i}{\sum_{j\in \mathcal{A}_t} \exp \delta^{(t)}_j}, \quad& i \in \mathcal{A}_t, i\neq y_t \\
@@ -172,7 +172,7 @@ First, consider the estimation of MNL choice parameters. At time $t$, the parame
 \end{cases}
 \end{equation}
 
-We propose the following \emph{MNL parameter update:}
+We propose the following \emph{MNL parameter update.}
 \begin{align} \label{mnlparameterupdate}
 \delta^{(t+1)} = \delta^{(t)} + \frac{\alpha}{t^r} Z^{(t)}
 \end{align}
@@ -182,7 +182,7 @@ $\alpha >0$ and $r \in (0, 1]$ are step parameters. The intuition behind this pa
 \item Decrease the estimated preferability of items that were rejected, and
 \item Leave unchanged the preferability of items not in the presented assortment.
 \end{itemize}
-Notice that $\sum_{i=1}^n \delta_i$ remains constant under the parameter update, because $\sum_i Z_i = 0$. The starting point $\delta^{(1)}$ may be chosen arbitrarily.
+Notice that $\sum_{i=1}^n \delta_i$ remains constant under the parameter update, because $\sum_i Z_i = 0$. The starting point $\delta^{(1)}$ may be chosen arbitrarily. 
 
 \begin{proposition}\label{mnlupdateconverges}If the observations are drawn from an MNL choice model and each consideration set appears with nonzero probability, then the MNL parameter update \eqref{mnlparameterupdate} converges in expectation to the true parameters $\delta$. 
 \end{proposition}
@@ -201,7 +201,7 @@ Notice that $\sum_{i=1}^n \delta_i$ remains constant under the parameter update,
 %\end{align}
 %is the updated parameter estimate.
 
-To prove Proposition \ref{mnlupdateconverges}, we invoke a few canonical results.
+To prove Proposition \ref{mnlupdateconverges}, we must invoke a few canonical results.
 
 \subsection{Convergence of gradient processes using decreasing step sizes}
 Consider the multivariate root-finding problem 
@@ -262,7 +262,7 @@ $\beta, \alpha >0$ and $r \in (0, 1]$ are step parameters.
 
 
 \section{Computational examples} \label{computation}
-We demonstrate the tractability of the dynamic parameter update in three simulations. The first simulation concerns the MNL case and is summarized in Figure \ref{param-est-dynamic-nonnested}, while the second concerns the NMNL case and is summarized in Figure \ref{param-est-dynamic-nested}. In both simulations, a small number of products was chosen to yield a legible graph; the parameter update formula is computationally tractable for much higher values of $n$ and $m$. The third simulation considers a larger product portfolio with NMNL choice, and it compares the accuracy of maximum likelihood estimation over a big dataset with the final estimate that results from treating the same observations as a data stream. While the accuracy is necessarily lower in the latter case, it may be acceptable given the savings in computation time. In all cases, it is possible to obtain smoother convergence by taking a rolling or tuning the step parameters $\alpha$, $\beta$, and $r$. The Julia code for these simulations is available on Github at \url{https://github.com/maxkapur/MultinomialLogit}. 
+We demonstrate the tractability of the dynamic parameter update in three simulations. The first simulation concerns the MNL case and is summarized in Figure \ref{param-est-dynamic-nonnested}, while the second concerns the NMNL case and is summarized in Figure \ref{param-est-dynamic-nested}. In both simulations, a small number of products was chosen to yield a legible graph; the parameter update formula is computationally tractable for much higher values of $n$ and $m$. The third simulation considers a larger product portfolio with NMNL choice, and it compares the accuracy of maximum likelihood estimation over a big dataset with the final estimate that results from treating the same observations as a data stream. While the accuracy is necessarily lower in the latter case, it may be acceptable given the savings in computation time. In all cases, it is possible to obtain smoother convergence by taking a rolling average or tuning the step parameters $\alpha$, $\beta$, and $r$. The Julia code for these simulations is available on Github at \url{https://github.com/maxkapur/MultinomialLogit}. 
 
 
 
@@ -271,7 +271,7 @@ We demonstrate the tractability of the dynamic parameter update in three simulat
 \begin{figure}
 \begin{center}\includegraphics[width=\textwidth]{param-est-dynamic-nonnested.png}\end{center}
 \captionsetup{singlelinecheck=off}
-    \caption[.]{(Color.) Dynamic estimation of MNL choice parameters for a collection of $n = 7$ products. True preferability parameters $\delta$ and the initial estimate $\delta^{(1)}$ were drawn independently from a normal distribution and centered at zero. At times $t = 1 \dots 25000$, a random assortment consisting of between two and five products was drawn, a consumer chose a product using the MNL choice model, and the parameter estimates were updated using Equation \ref{mnlparameterupdate}. The parameter estimate at each iteration is shown in a light stroke, while darker lines indicate a moving average over the previous 500 estimates. The step parameters are $\alpha = 0.01$ and $r = 0.05$.}
+    \caption[.]{(Color.) Dynamic estimation of MNL choice parameters for a collection of $n = 7$ products. True preferability parameters $\delta$ and the initial estimate $\delta^{(1)}$ were drawn independently from a normal distribution and centered at zero. At $t = 1 \dots 25000$, a random assortment consisting of between two and five products was drawn, a consumer chose a product using the MNL choice model, and the parameter estimates were updated using Equation \ref{mnlparameterupdate}. The parameter estimate at each iteration is shown in a light stroke, while darker lines indicate a moving average over the previous 500 estimates. The step parameters are $\alpha = 0.01$ and $r = 0.05$.}
 \label{param-est-dynamic-nonnested}
 \end{figure}
 
@@ -285,7 +285,7 @@ We demonstrate the tractability of the dynamic parameter update in three simulat
 \begin{figure}
 \begin{center}\includegraphics[width=\linewidth, ]{param-est-dynamic-nested.png}\end{center}
 \captionsetup{singlelinecheck=off}
-    \caption[.]{(Color.) Dynamic estimation of MNL choice parameters for a collection of $mn = 12$ products divided across $m=4$ nests. True preferability parameters $\sigma$ and $\delta$ as well as the initial parameter estimates were drawn independently from a normal distribution and centered at zero. At times $t = 1 \dots 60000$, a random assortment consisting of between two and five products was drawn, a consumer chose a product using the NMNL choice model, and the parameter estimates were updated using Equation \ref{nmnlparameterupdate}. The parameter estimate at each iteration is shown in a light stroke, while darker lines indicate a moving average over the previous 1200 estimates. The step parameters are $\beta = 0.01$, $\alpha = 0.03$, and $r = 0.05$. The first pane shows the time series of $\sigma$ estimates, while the second shows the entries of $\delta$, color-coded by nest membership.}
+    \caption[.]{(Color.) Dynamic estimation of MNL choice parameters for a collection of $mn = 12$ products divided across $m=4$ nests. True preferability parameters $\sigma$ and $\delta$ as well as the initial parameter estimates were drawn independently from a normal distribution and centered at zero. At $t = 1 \dots 60000$, a random assortment consisting of between two and five products was drawn, a consumer chose a product using the NMNL choice model, and the parameter estimates were updated using Equation \ref{nmnlparameterupdate}. The parameter estimate at each iteration is shown in a light stroke, while darker lines indicate a moving average over the previous 1200 estimates. The step parameters are $\beta = 0.01$, $\alpha = 0.03$, and $r = 0.05$. The first pane shows the time series of $\sigma$ estimates, while the second shows the entries of $\delta$, color-coded by nest membership.}
 \label{param-est-dynamic-nested}
 \end{figure}
 
@@ -296,7 +296,7 @@ We demonstrate the tractability of the dynamic parameter update in three simulat
 \begin{figure}
 \begin{center}\includegraphics[width=\linewidth, ]{param-est-dynamic-nested-as-static.png}\end{center}
 \captionsetup{singlelinecheck=off}
-    \caption[.]{(Color.) Performance of the dynamic parameter estimate versus maximum likelihood estimation. Preferability parameters for $mn = 120$ products divided into $m=10$ nests were drawn from the normal distribution and centered at zero. $T=500000$ assortments and consumer choices were generated according to the NMNL model. In the upper two panes, the observations were treated as a time series, and we report the estimate produced by the final iteration of the dynamic parameter update with step parameters $\beta = 0.01$, $\alpha = 0.03$, and $r = 0.05$. In the lower two panes, the parameters were estimated using maximum likelihood estimation. Dynamic parameter estimation offers acceptable accuracy at substantially lower computational cost.}
+    \caption[.]{(Color.) Performance of the dynamic parameter estimate compared to maximum likelihood estimation. Preferability parameters for $mn = 120$ products divided into $m=10$ nests were drawn from the normal distribution and centered at zero. $T=500000$ assortments and consumer choices were generated according to the NMNL model. In the upper two panes, the observations were treated as a time series, and we report the estimate produced by the final iteration of the dynamic parameter update with step parameters $\beta = 0.01$, $\alpha = 0.03$, and $r = 0.05$. In the lower two panes, the parameters were estimated using maximum likelihood estimation. Dynamic parameter estimation offers acceptable accuracy at substantially lower computational cost.}
 \label{param-est-dynamic-nested-as-static}
 \end{figure}
 
