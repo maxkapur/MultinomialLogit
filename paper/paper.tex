@@ -260,7 +260,7 @@ Propositions \ref{mnlupdateconverges} and \ref{nmnlupdateconverges} require that
 
 
 \section{Computational examples} \label{computation}
-We demonstrate the tractability of the dynamic parameter update in three simulations. The first simulation concerns the MNL case and is summarized in Figure \ref{param-est-dynamic-nonnested}, while the second concerns the NMNL case and is summarized in Figure \ref{param-est-dynamic-nested}. In both simulations, a small number of products was chosen to yield a legible graph; the parameter update formula is computationally tractable for much higher values of $n$ and $m$. The third simulation considers a larger product portfolio with NMNL choice, and it compares the accuracy of maximum likelihood estimation over a big dataset with the final estimate that results from treating the same observations as a data stream. While the accuracy is necessarily lower in the latter case, it may be acceptable given the savings in computation time. In all cases, it is possible to obtain smoother convergence by taking a rolling average or tuning the step parameters $\alpha$, $\beta$, and $r$.
+We demonstrate the tractability of the dynamic parameter update through three simulations. The first simulation concerns the MNL case and is summarized in Figure \ref{param-est-dynamic-nonnested}, while the second concerns the NMNL case and is summarized in Figure \ref{param-est-dynamic-nested}. In both simulations, a small number of products was chosen to yield a legible graph; the parameter update formula is computationally tractable for much higher values of $n$ and $m$. The third simulation considers a larger product portfolio with NMNL choice, and it compares the accuracy of maximum likelihood estimation over a large dataset with the final estimate that results from treating the same observations as a data stream and applying the dynamic update. While the accuracy is necessarily lower in the latter case, it may be acceptable given the savings in computation time. In all cases, it is possible to obtain smoother convergence by taking a rolling average or tuning the step parameters $\alpha$, $\beta$, and $r$.
 
 The Julia code for these simulations is available on Github at \url{https://github.com/maxkapur/MultinomialLogit}. 
 
@@ -345,7 +345,7 @@ Davis, James M.,  Guillermo Gallego, and Huseyin Topaloglu. 2014. ``Assortment O
 Farias, Vivek F., Srikanth Jagabathula, and Devavrat Shah. 2013. “A Nonparametric Approach to Modeling Choice with Limited Data.” \emph{Management Science} 59(2): 305--22. {\url{https://doi.org/10.1287/mnsc.1120.1610}}. 
 
 \bibitem[Ho-Nguyen and Kılınç-Karzan(2021)]{honguyen2021}
-Ho-Nguyen, Nam and Fatma Kılınç-Karzan. 2021. ``Dynamic Data-Driven Estimation of Nonparametric Choice Models.'' \emph{Operations Research: Articles in Advance.} {\url{https://doi.org/10.1287/opre.2020.2077}}.
+Ho-Nguyen, Nam and Fatma Kılınç-Karzan. 2021. ``Dynamic Data-Driven Estimation of Nonparametric Choice Models.'' \emph{Operations Research} 69(4): 1228--39. {\url{https://doi.org/10.1287/opre.2020.2077}}.
 
 \bibitem[Keane(1997)]{keane1997}
 Keane, Michael P. 1997. ``Current Issues in Discrete Choice Modeling." \emph{Marketing Letters} 8(3): 307--22. {\url{https://www.jstor.org/stable/40216456}}.
